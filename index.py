@@ -4,9 +4,6 @@ import io
 from flask import Flask, render_template, request, Response
 
 app = Flask(__name__)
-app.debug = True
-# Ye line Vercel ke liye lazmi hai
-app = app
 
 VOICES = {
     "ur": "ur-PK-AsadNeural",
@@ -22,7 +19,7 @@ def index():
 async def convert():
     text = request.form.get('text')
     lang = request.form.get('language')
-    
+
     if not text:
         return "Text is required", 400
 
@@ -34,7 +31,7 @@ async def convert():
         async for chunk in communicate.stream():
             if chunk["type"] == "audio":
                 audio_stream.write(chunk["data"])
-        
+
         audio_stream.seek(0)
         return Response(audio_stream.getvalue(), mimetype="audio/mpeg")
 
@@ -42,5 +39,5 @@ async def convert():
         print(f"Error: {e}")
         return str(e), 500
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+# Vercel ke liye ye line sab se aakhir mein lazmi hai
+app = app
