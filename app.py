@@ -3,8 +3,8 @@ import edge_tts
 import io
 from flask import Flask, render_template, request, Response
 
-#app = Flask(__name__)
-#app.debug = True
+app = Flask(__name__)
+app.debug = True
 # Ye line Vercel ke liye lazmi hai
 app = app
 VOICES = {
