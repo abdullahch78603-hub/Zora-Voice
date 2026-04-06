@@ -4,6 +4,9 @@ import io
 from flask import Flask, render_template, request, Response
 
 app = Flask(__name__)
+app.debug = True
+# Ye line Vercel ke liye lazmi hai
+app = app
 
 VOICES = {
     "ur": "ur-PK-AsadNeural",
@@ -38,11 +41,6 @@ async def convert():
     except Exception as e:
         print(f"Error: {e}")
         return str(e), 500
-app = Flask(__name__)
-app.debug = True # optional
-app.secret_key = 'some_secret_key' # optional
 
-# Ye line add karein Vercel ke liye
-app = app
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
